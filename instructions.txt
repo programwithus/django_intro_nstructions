@@ -1,0 +1,78 @@
+Django Project Instructions
+
+Step 1. Mkdir youtubeproject
+
+Step 2. virtualenv venv
+
+Step 3. Pip install django
+
+Step 4. django-admin startproject youtube
+
+Step 5. python manage.py startapp subscribers
+
+Step 6. Add “subscribers” to INSTALLED_APPS in settings.py
+
+Step 7. Create a  Model
+
+class Friend(models.Model):
+    first_name = models.CharField(max_length=400)
+    last_name = models.CharField(max_length=400)
+
+Step 8. In admin.py add the Model
+
+from . models import Friend
+
+# Register your models here.
+admin.site.register(Friend)
+
+
+Step 9. In the terminal run 
+
+python manage.py makemigrations
+
+python manage.py migrate
+
+python manage.py createsuperuser
+
+Step 10. Start the development server
+
+python manage.py runserver
+
+In Views Import 
+
+from django.views.generic.list import ListView
+from .models import Friend
+
+Step 11. In views.py Create a view
+
+class DisplayFriends(ListView):
+    model = Friend
+
+Step 12. In urls.py
+
+from subscribers.views import DisplayFriends
+
+Add the View to URLpatterns
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("friends/", DisplayFriends.as_view()),
+]
+
+Step 13. Add HTM Template
+
+Create new folders in subscribers app
+
+templates/subscribers
+
+Step 14. Create in that folder friend_list.html
+
+In friend_list.html
+
+Step 15.
+
+<h1>Hello</h1>
+
+{% for name in object_list %}
+    <h1>{{name.first_name}} {{name.last_name}} </h1>
+{% endfor %}
